@@ -1,6 +1,7 @@
 window.onload = function (e) {
 	var game = new Game(5, 5);
 	var ui = new GameInterface (game, "map", "tile");
+	game.initialize();
 	ui.initialize();
 }
 
@@ -13,11 +14,13 @@ function GameInterface (game, id, cl) {
 
 	this.initialize = function () {
 		map.innerHTML = "";
+		selected = null;
 		addTiles();
+		render();
 	}
 
 	this.render = function () {
-
+		displayInfo();
 	}
 
 	var addTiles = function () {
@@ -29,9 +32,44 @@ function GameInterface (game, id, cl) {
 				div.style.width = tileHeight();
 				div.setAttribute("x", i);
 				div.setAttribute("y", j);
+
+				div.addEventListener("click", clickTile, false);
+				div.addEventListener("mouseover", hoverTile, false);
+				div.addEventListener("mouseout", displayInfo, false);
 				map.appendChild(div);
 			}
 		}
+	}
+
+	var clickTile = function () {
+		if (selected) {
+			var className = "tile x" + selected.x + " y" + selected.y;
+			var old = document.getElementsByClassName(className)[0];
+			old.className = className;
+		}
+		var x = this.getAttribute("x");
+		var y = this.getAttribute("y");
+		this.className += " selected";
+		selected = new Coordinate(x, y);
+		displayInfo(game.getChild(x, y));
+	}
+
+	var hoverTile = function () {
+		var x = this.getAttribute("x");
+		var y = this.getAttribute("y");
+		displayInfo(game.getChild(x, y));
+	}
+
+	var displayInfo = function (object) {
+		if (!object) {
+			if (selected) {
+				object = game.getChild(selected.x, selected.y);
+			} else {
+				object = game.getCurrent();
+			}
+		}
+
+		document.getElementById("description").innerHTML = object.toString();
 	}
 
 	var tileWidth = function () {
@@ -50,6 +88,10 @@ function Game (x, y) {
 
 	var current;
 
+	this.getCurrent = function () {
+		return current;
+	}
+
 	this.getX = function () {
 		return dimensions.x;
 	}
@@ -58,7 +100,7 @@ function Game (x, y) {
 		return dimensions.y;
 	}
 
-	this.getObject = function (x, y) {
+	this.getChild = function (x, y) {
 		return children[x][y];
 	}
 
