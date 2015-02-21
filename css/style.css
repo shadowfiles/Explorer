@@ -1,0 +1,49 @@
+body {
+	background: #222;
+	margin: 0;
+	padding: 0;
+	color: #bbb;
+	font-family:'Ubuntu', sans-serif;
+	font-size: 16px;
+	line-height: 26px;
+}
+
+a, a:link, a:visited, a:active {
+	color: #eee;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #fff;
+}
+
+#map {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  min-width:400px;
+  min-height:400px;
+  max-height: 800px;
+  max-width: 800px;
+  background-color: #000;
+}
+
+.tile {
+	float: left;
+	width: 20%;
+	height: 20%;
+}
+
+.tile:hover {
+	cursor: pointer;
+	backface-visibility: hidden; 
+	background-color: #3498db;
+}
+
+.panel {
+	min-width:200px;
+	width: 23%;
+	padding: 1%;
+	height: 98%;
+	float: right;
+}
