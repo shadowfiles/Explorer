@@ -14,13 +14,13 @@ function GameInterface (game, id, cl) {
 
 	this.initialize = function () {
 		map.innerHTML = "";
-		selected = null;
 		addTiles();
-		render();
+		this.render();
 	}
 
 	this.render = function () {
-		displayInfo();
+		deselectSelected();
+		displayDefaultInfo();
 	}
 
 	var addTiles = function () {
@@ -35,18 +35,36 @@ function GameInterface (game, id, cl) {
 
 				div.addEventListener("click", clickTile, false);
 				div.addEventListener("mouseover", hoverTile, false);
-				div.addEventListener("mouseout", displayInfo, false);
+				div.addEventListener("mouseout", displayDefaultInfo, false);
 				map.appendChild(div);
 			}
 		}
+		document.addEventListener("click", revertSelection, false);
+		document.getElementById("info").addEventListener("click", stopClick, false);
 	}
 
-	var clickTile = function () {
+	var revertSelection = function () {
+		deselectSelected();
+		displayDefaultInfo();
+	}
+
+	var deselectSelected = function () {
 		if (selected) {
 			var className = "tile x" + selected.x + " y" + selected.y;
 			var old = document.getElementsByClassName(className)[0];
 			old.className = className;
+			selected = null;
 		}
+	}
+
+	var stopClick = function (e) {
+		e.stopPropagation();
+	}
+
+	var clickTile = function (e) {
+		stopClick(e);
+		deselectSelected();
+
 		var x = this.getAttribute("x");
 		var y = this.getAttribute("y");
 		this.className += " selected";
@@ -54,22 +72,25 @@ function GameInterface (game, id, cl) {
 		displayInfo(game.getChild(x, y));
 	}
 
-	var hoverTile = function () {
+	var hoverTile = function (e) {
 		var x = this.getAttribute("x");
 		var y = this.getAttribute("y");
 		displayInfo(game.getChild(x, y));
 	}
 
-	var displayInfo = function (object) {
-		if (!object) {
-			if (selected) {
-				object = game.getChild(selected.x, selected.y);
-			} else {
-				object = game.getCurrent();
-			}
+	var displayDefaultInfo = function () {
+		var object;
+		if (selected) {
+			object = game.getChild(selected.x, selected.y);
+		} else {
+			object = game.getCurrent();
 		}
+		displayInfo(object);
+	}
 
+	var displayInfo = function (object) {
 		document.getElementById("description").innerHTML = object.toString();
+		document.getElementById("image").src = object.getImg();
 	}
 
 	var tileWidth = function () {
