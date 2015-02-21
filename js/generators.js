@@ -29,7 +29,7 @@ Universe.prototype.getParent = function() {
 }
 
 //defines the Galaxy object
-var galaxyTypes = [["Desert Galaxy", "This is a desert galaxy.", "g1"], ["Forest Galaxy", "This is a forest galaxy.", "g2"], ["Ice Galaxy", "This is an icy galaxy.", "g3"]];
+var galaxyTypes = [["Spiral Galaxy", "This is a spiral galaxy.", "g1"], ["Lenticular Galaxy", "This is a lenticular galaxy.", "g2"], ["Elliptical Galaxy", "This is an elliptical galaxy.", "g3"]];
 
 function Galaxy(seed, myParent) {
     this.seed = seed;
@@ -57,7 +57,7 @@ Galaxy.prototype.getImg = function() {
 }
 
 //defines the System object
-var systemTypes = [["Desert System", "This is a desert system.", "s1"], ["Forest System", "This is a forest system.", "s2"], ["Ice System", "This is an icy system.", "s3"]];
+var systemTypes = [["Red Giant System", "This is a red giant system.", "s1"], ["White Dwarf System", "This is a white dwarf system.", "s2"], ["Subgiant System", "This is a subgiant system.", "s3"]];
 
 function System(seed, myParent) {
     this.seed = seed;
