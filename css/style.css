@@ -32,10 +32,26 @@ a:hover {
 	float: left;
 	width: 20%;
 	height: 20%;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+	color: #fff;
+}
+
+.tile svg {
+	max-height: 98%;
+	max-width: 98%;
+	padding: 1%;
+	height: 98%;
+	width: 98%;
+	display: block;
+	margin: auto;
+	fill: currentColor;
 }
 
 .tile:hover {
 	cursor: pointer;
+	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden; 
 	background-color: #3498db;
 }
