@@ -26,6 +26,9 @@ a:hover {
   max-height: 800px;
   max-width: 800px;
   background-color: #000;
+  text-align: center;
+  display: table-cell;
+	vertical-align: middle;
 }
 
 .tile {
@@ -36,6 +39,11 @@ a:hover {
 	display: table-cell;
 	vertical-align: middle;
 	color: #fff;
+	backface-visibility: hidden; 
+}
+
+.tile .selected {
+	background: #f39c12;
 }
 
 .tile svg {
@@ -46,7 +54,6 @@ a:hover {
 	width: 98%;
 	display: block;
 	margin: auto;
-	fill: currentColor;
 }
 
 .tile:hover {
@@ -62,4 +69,40 @@ a:hover {
 	padding: 1%;
 	height: 98%;
 	float: right;
+}
+
+.fade {
+	opacity: 0.3;
+  filter: alpha(opacity=30);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.fade:hover {
+	opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+#info {
+	margin-top: 2%;
+	text-align: center;
+}
+
+#info img {
+	width: 80%;
+	margin: 0 10%;
+}
+
+#info .button {
+	cursor: pointer;
+	background: #555;
+	width: 70%;
+	margin: 0 10%;
+	height: 26px;
+	font-size: 18px;
+	line-height: 26px;
+	padding: 5px 5%;
 }
