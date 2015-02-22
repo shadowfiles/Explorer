@@ -8,8 +8,6 @@ function seedChoice(seed, choices) {
 }
 
 //defines the universe object
-var universeTypes = [["Cyclic Universe", "This is a cyclic universe.", "1"], ["Landscape Universe", "This is a landscape universe.", "2"], ["Quantum Universe", "This is a quantum universe.", "3"]];
-
 function Universe(seed) {
     this.seed = seed;
     this.myParent = this;
@@ -20,7 +18,7 @@ function Universe(seed) {
 
 
 Universe.prototype.toString = function() {
-    return "Universe -" + " Seed: " + this.seed;
+    return "Universe -" + " Seed: " + this.seed + " - Type: " + this.myType + " - Description: " + this.myDesc;
 }
 
 Universe.prototype.getChild = function(x, y) {
@@ -37,8 +35,6 @@ Universe.prototype.getImg = function() {
 }
 
 //defines the Galaxy object
-var galaxyTypes = [["Spiral Galaxy", "This is a spiral galaxy.", "1"], ["Lenticular Galaxy", "This is a lenticular galaxy.", "2"], ["Elliptical Galaxy", "This is an elliptical galaxy.", "3"]];
-
 function Galaxy(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
@@ -65,8 +61,6 @@ Galaxy.prototype.getImg = function() {
 }
 
 //defines the System object
-var systemTypes = [["Red Giant System", "This is a red giant system.", "1"], ["White Dwarf System", "This is a white dwarf system.", "2"], ["Subgiant System", "This is a subgiant system.", "3"]];
-
 function System(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
@@ -93,8 +87,6 @@ System.prototype.getImg = function() {
 }
 
 //defines the planet object
-var planetTypes = [["Desert Planet", "This is a desert planet.", "1"], ["Forest Planet", "This is a forest planet.", "2"], ["Ice Planet", "This is an icy planet.", "3"]];
-
 function Planet(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
@@ -121,8 +113,6 @@ Planet.prototype.getImg = function() {
 }
 
 //defines the region object
-var regionTypes = [["Atmosphere", "This is an atmosphere.", "1"], ["Continent", "This is a continent.", "2"], ["Ocean", "This is an ocean.", "3"]];
-
 function Region(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
@@ -149,8 +139,6 @@ Region.prototype.getImg = function() {
 }
 
 //defines the Biome object
-var biomeTypes = [["Desert Biome", "This is a desert biome.", "1"], ["Forest Biome", "This is a forest biome.", "2"], ["Ice Biome", "This is an icy biome.", "3"]];
-
 function Biome(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
@@ -177,8 +165,6 @@ Biome.prototype.getImg = function() {
 }
 
 //defines the Locale object
-var localeTypes = [["City", "This is a city locale.", "1"], ["Field", "This is a field locale.", "2"], ["Village", "This is a village locale.", "3"]];
-
 function Locale(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
@@ -206,8 +192,6 @@ Locale.prototype.getImg = function() {
 
 
 //defines the Area object
-var areaTypes = [["House", "This is a house area.", "1"], ["Store", "This is a store area.", "2"], ["Field", "This is a field area.", "3"]];
-
 function Area(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
@@ -234,8 +218,6 @@ Area.prototype.getImg = function() {
 }
 
 //defines the Item object
-var itemTypes = [["Book", "This is a book item.", "1"], ["Chair", "This is a chair item.", "2"], ["Rock", "This is a rock item.", "3"]];
-
 function Item(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
