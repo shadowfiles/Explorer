@@ -46,6 +46,10 @@ a:hover {
 	background-color: #f39c12;
 }
 
+.tile.selected:hover {
+	background-color: #9b59b6;
+}
+
 .tile svg {
 	max-height: 98%;
 	max-width: 98%;
@@ -95,6 +99,11 @@ a:hover {
 	width: 70%;
 	height: 300px;
 	margin: 0 15%;
+}
+
+#info #description {
+	display: block;
+
 }
 
 svg {
