@@ -29,14 +29,14 @@ Universe.prototype.getParent = function() {
 }
 
 //defines the Galaxy object
-var galaxyTypes = [["Spiral Galaxy", "This is a spiral galaxy.", "g1"], ["Lenticular Galaxy", "This is a lenticular galaxy.", "g2"], ["Elliptical Galaxy", "This is an elliptical galaxy.", "g3"]];
+var galaxyTypes = [["Spiral Galaxy", "This is a spiral galaxy.", "1"], ["Lenticular Galaxy", "This is a lenticular galaxy.", "2"], ["Elliptical Galaxy", "This is an elliptical galaxy.", "3"]];
 
 function Galaxy(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
     this.myType = seedChoice(seed, galaxyTypes)[0];
     this.myDesc = seedChoice(seed, galaxyTypes)[1];
-    this.myImg = "img/" + seedChoice(seed, galaxyTypes)[2] + ".svg";
+    this.myImg = "img/g/" + seedChoice(seed, galaxyTypes)[2] + ".svg";
 }
 
 Galaxy.prototype.toString = function() {
@@ -57,14 +57,14 @@ Galaxy.prototype.getImg = function() {
 }
 
 //defines the System object
-var systemTypes = [["Red Giant System", "This is a red giant system.", "s1"], ["White Dwarf System", "This is a white dwarf system.", "s2"], ["Subgiant System", "This is a subgiant system.", "s3"]];
+var systemTypes = [["Red Giant System", "This is a red giant system.", "1"], ["White Dwarf System", "This is a white dwarf system.", "2"], ["Subgiant System", "This is a subgiant system.", "3"]];
 
 function System(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
     this.myType = seedChoice(seed, systemTypes)[0];
     this.myDesc = seedChoice(seed, systemTypes)[1];
-    this.myImg = "img/" + seedChoice(seed, galaxyTypes)[2] + ".svg";
+    this.myImg = "img/s/" + seedChoice(seed, galaxyTypes)[2] + ".svg";
 }
 
 System.prototype.toString = function() {
@@ -85,14 +85,14 @@ System.prototype.getImg = function() {
 }
 
 //defines the planet object
-var planetTypes = [["Desert Planet", "This is a desert planet.", "p1"], ["Forest Planet", "This is a forest planet.", "p2"], ["Ice Planet", "This is an icy planet.", "p3"]];
+var planetTypes = [["Desert Planet", "This is a desert planet.", "1"], ["Forest Planet", "This is a forest planet.", "2"], ["Ice Planet", "This is an icy planet.", "3"]];
 
 function Planet(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
     this.myType = seedChoice(seed, planetTypes)[0];
     this.myDesc = seedChoice(seed, planetTypes)[1];
-    this.myImg = "img/" + seedChoice(seed, galaxyTypes)[2] + ".svg";
+    this.myImg = "img/p/" + seedChoice(seed, galaxyTypes)[2] + ".svg";
 }
 
 Planet.prototype.toString = function() {
@@ -113,14 +113,14 @@ Planet.prototype.getImg = function() {
 }
 
 //defines the region object
-var regionTypes = [["Atmosphere", "This is an atmosphere.", "r1"], ["Continent", "This is a continent.", "r2"], ["Ocean", "This is an ocean.", "r3"]];
+var regionTypes = [["Atmosphere", "This is an atmosphere.", "1"], ["Continent", "This is a continent.", "2"], ["Ocean", "This is an ocean.", "3"]];
 
 function Region(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
     this.myType = seedChoice(seed, regionTypes)[0];
     this.myDesc = seedChoice(seed, regionTypes)[1];
-    this.myImg = "img/" + seedChoice(seed, galaxyTypes)[2] + ".svg";
+    this.myImg = "img/r/" + seedChoice(seed, galaxyTypes)[2] + ".svg";
 }
 
 Region.prototype.toString = function() {
@@ -141,14 +141,14 @@ Region.prototype.getImg = function() {
 }
 
 //defines the Biome object
-var biomeTypes = [["Desert Biome", "This is a desert biome.", "b1"], ["Forest Biome", "This is a forest biome.", "b2"], ["Ice Biome", "This is an icy biome.", "b3"]];
+var biomeTypes = [["Desert Biome", "This is a desert biome.", "1"], ["Forest Biome", "This is a forest biome.", "2"], ["Ice Biome", "This is an icy biome.", "3"]];
 
 function Biome(seed, myParent) {
     this.seed = seed;
     this.myParent = myParent;
     this.myType = seedChoice(seed, biomeTypes)[0];
     this.myDesc = seedChoice(seed, biomeTypes)[1];
-    this.myImg = "img/" + seedChoice(seed, galaxyTypes)[2] + ".svg";
+    this.myImg = "img/b/" + seedChoice(seed, galaxyTypes)[2] + ".svg";
 }
 
 Biome.prototype.toString = function() {
