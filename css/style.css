@@ -92,8 +92,8 @@ a:hover {
 }
 
 #info #panel_image {
-	width: 80%;
-	margin: 0 10%;
+	width: 70%;
+	margin: 0 15%;
 }
 
 svg {
@@ -120,6 +120,7 @@ svg * {
 	font-size: 18px;
 	line-height: 26px;
 	padding: 5px 5%;
+	margin-top: 15px;
 }
 
 #info .button:hover {
