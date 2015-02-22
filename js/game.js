@@ -14,29 +14,13 @@ function GameInterface (game, id, cl) {
 
 	this.initialize = function () {
 		map.innerHTML = "";
-		addTiles();
-		this.render();
+		renderTiles();
 	}
 
-	this.render = function () {
-		deselectSelected();
-		displayDefaultInfo();
-	}
-
-	var addTiles = function () {
+	var renderTiles = function () {
 		for (var i = 0; i < game.getX(); i++) {
 			for (var j = 0; j < game.getY(); j++) {
-				var div = document.createElement("div");
-				div.className = tile + " x" + i + " y" + j;
-				div.style.height = tileWidth();
-				div.style.width = tileHeight();
-				div.setAttribute("x", i);
-				div.setAttribute("y", j);
-
-				div.addEventListener("click", clickTile, false);
-				div.addEventListener("mouseover", hoverTile, false);
-				div.addEventListener("mouseout", displayDefaultInfo, false);
-				map.appendChild(div);
+				map.appendChild(renderTile(i, j));
 			}
 		}
 		document.addEventListener("click", revertSelection, false);
@@ -55,6 +39,30 @@ function GameInterface (game, id, cl) {
 			old.className = className;
 			selected = null;
 		}
+	}
+
+	var renderTile = function (x, y) {
+		var tile = initializeTile(x, y);
+		xhr = new XMLHttpRequest();
+		xhr.open("GET", game.getChild(x, y).getImg(), false);
+		xhr.overrideMimeType("image/svg+xml");
+		xhr.send("");
+		tile.appendChild(xhr.responseXML.documentElement);
+		return tile;
+	}
+
+	var initializeTile = function (x, y) {
+		var div = document.createElement("div");
+		div.className = tile + " x" + x + " y" + y;
+		div.style.height = tileWidth();
+		div.style.width = tileHeight();
+		div.setAttribute("x", x);
+		div.setAttribute("y", y);
+
+		div.addEventListener("click", clickTile, false);
+		div.addEventListener("mouseover", hoverTile, false);
+		div.addEventListener("mouseout", displayDefaultInfo, false);
+		return div;
 	}
 
 	var stopClick = function (e) {
@@ -87,6 +95,7 @@ function GameInterface (game, id, cl) {
 		}
 		displayInfo(object);
 	}
+
 
 	var displayInfo = function (object) {
 		document.getElementById("description").innerHTML = object.toString();
