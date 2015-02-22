@@ -17,6 +17,14 @@ function GameInterface (game, id, cl) {
 		renderTiles();
 	}
 
+	var getSVG = function (img) {
+		xhr = new XMLHttpRequest();
+		xhr.open("GET", img, false);
+		xhr.overrideMimeType("image/svg+xml");
+		xhr.send("");
+		return xhr.responseXML.documentElement;
+	}
+
 	var renderTiles = function () {
 		for (var i = 0; i < game.getX(); i++) {
 			for (var j = 0; j < game.getY(); j++) {
@@ -41,16 +49,6 @@ function GameInterface (game, id, cl) {
 		}
 	}
 
-	var renderTile = function (x, y) {
-		var tile = initializeTile(x, y);
-		xhr = new XMLHttpRequest();
-		xhr.open("GET", game.getChild(x, y).getImg(), false);
-		xhr.overrideMimeType("image/svg+xml");
-		xhr.send("");
-		tile.appendChild(xhr.responseXML.documentElement);
-		return tile;
-	}
-
 	var initializeTile = function (x, y) {
 		var div = document.createElement("div");
 		div.className = tile + " x" + x + " y" + y;
@@ -63,6 +61,12 @@ function GameInterface (game, id, cl) {
 		div.addEventListener("mouseover", hoverTile, false);
 		div.addEventListener("mouseout", displayDefaultInfo, false);
 		return div;
+	}
+
+	var renderTile = function (x, y) {
+		var tile = initializeTile(x, y);
+		tile.appendChild(getSVG(game.getChild(x, y).getImg()));
+		return tile;
 	}
 
 	var stopClick = function (e) {
@@ -98,8 +102,10 @@ function GameInterface (game, id, cl) {
 
 
 	var displayInfo = function (object) {
+		var image = document.getElementById("panel_image");
 		document.getElementById("description").innerHTML = object.toString();
-		document.getElementById("image").src = object.getImg();
+		image.innerHTML = '';
+		image.appendChild(getSVG(object.getImg()));
 	}
 
 	var tileWidth = function () {
