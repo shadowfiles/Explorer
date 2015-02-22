@@ -42,8 +42,8 @@ a:hover {
 	backface-visibility: hidden; 
 }
 
-.tile .selected {
-	background: #f39c12;
+.tile.selected {
+	background-color: #f39c12;
 }
 
 .tile svg {

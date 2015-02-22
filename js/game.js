@@ -1,6 +1,7 @@
 window.onload = function (e) {
 	var game = new Game(5, 5);
 	var ui = new GameInterface (game, "map", "tile");
+	game.initialize();
 	ui.initialize();
 }
 
@@ -14,10 +15,12 @@ function GameInterface (game, id, cl) {
 	this.initialize = function () {
 		map.innerHTML = "";
 		addTiles();
+		this.render();
 	}
 
 	this.render = function () {
-
+		deselectSelected();
+		displayDefaultInfo();
 	}
 
 	var addTiles = function () {
@@ -29,9 +32,65 @@ function GameInterface (game, id, cl) {
 				div.style.width = tileHeight();
 				div.setAttribute("x", i);
 				div.setAttribute("y", j);
+
+				div.addEventListener("click", clickTile, false);
+				div.addEventListener("mouseover", hoverTile, false);
+				div.addEventListener("mouseout", displayDefaultInfo, false);
 				map.appendChild(div);
 			}
 		}
+		document.addEventListener("click", revertSelection, false);
+		document.getElementById("info").addEventListener("click", stopClick, false);
+	}
+
+	var revertSelection = function () {
+		deselectSelected();
+		displayDefaultInfo();
+	}
+
+	var deselectSelected = function () {
+		if (selected) {
+			var className = "tile x" + selected.x + " y" + selected.y;
+			var old = document.getElementsByClassName(className)[0];
+			old.className = className;
+			selected = null;
+		}
+	}
+
+	var stopClick = function (e) {
+		e.stopPropagation();
+	}
+
+	var clickTile = function (e) {
+		stopClick(e);
+		deselectSelected();
+
+		var x = this.getAttribute("x");
+		var y = this.getAttribute("y");
+		this.className += " selected";
+		selected = new Coordinate(x, y);
+		displayInfo(game.getChild(x, y));
+	}
+
+	var hoverTile = function (e) {
+		var x = this.getAttribute("x");
+		var y = this.getAttribute("y");
+		displayInfo(game.getChild(x, y));
+	}
+
+	var displayDefaultInfo = function () {
+		var object;
+		if (selected) {
+			object = game.getChild(selected.x, selected.y);
+		} else {
+			object = game.getCurrent();
+		}
+		displayInfo(object);
+	}
+
+	var displayInfo = function (object) {
+		document.getElementById("description").innerHTML = object.toString();
+		document.getElementById("image").src = object.getImg();
 	}
 
 	var tileWidth = function () {
@@ -50,6 +109,10 @@ function Game (x, y) {
 
 	var current;
 
+	this.getCurrent = function () {
+		return current;
+	}
+
 	this.getX = function () {
 		return dimensions.x;
 	}
@@ -58,7 +121,7 @@ function Game (x, y) {
 		return dimensions.y;
 	}
 
-	this.getObject = function (x, y) {
+	this.getChild = function (x, y) {
 		return children[x][y];
 	}
 
