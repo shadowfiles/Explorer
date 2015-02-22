@@ -3,6 +3,8 @@ window.onload = function (e) {
 	var ui = new GameInterface (game, "map", "tile");
 	game.initialize();
 	ui.initialize();
+
+	document.getElementById("move").addEventListener("click", ui.move, false);
 }
 
 function GameInterface (game, id, cl) {
@@ -13,19 +15,39 @@ function GameInterface (game, id, cl) {
 	var selected;
 
 	this.initialize = function () {
-		map.innerHTML = "";
 		renderTiles();
 	}
 
-	var getSVG = function (img) {
+	this.move = function () {
+		if (selected) {
+			game.move(selected.x, selected.y);
+			renderTiles();
+			revertSelection();
+		}
+	}
+
+	var getSVG = function (obj) {
 		xhr = new XMLHttpRequest();
-		xhr.open("GET", img, false);
+		xhr.open("GET", obj.getImg(), false);
 		xhr.overrideMimeType("image/svg+xml");
 		xhr.send("");
-		return xhr.responseXML.documentElement;
+		var svg = xhr.responseXML.documentElement;
+		var color = "#fff";
+		svg.style.fill = color;
+		svg.style.color = color;
+		var children = svg.getElementsByTagName("*");
+		for (var i = 0; i < children.length; i++) {
+			if (children[i] != null && children[i].style != null) {
+				children[i].style.fill = color;
+				children[i].style.color = color;
+			}
+		}
+
+		return svg;
 	}
 
 	var renderTiles = function () {
+		map.innerHTML = "";
 		for (var i = 0; i < game.getX(); i++) {
 			for (var j = 0; j < game.getY(); j++) {
 				map.appendChild(renderTile(i, j));
@@ -65,7 +87,7 @@ function GameInterface (game, id, cl) {
 
 	var renderTile = function (x, y) {
 		var tile = initializeTile(x, y);
-		tile.appendChild(getSVG(game.getChild(x, y).getImg()));
+		tile.appendChild(getSVG(game.getChild(x, y)));
 		return tile;
 	}
 
@@ -105,7 +127,7 @@ function GameInterface (game, id, cl) {
 		var image = document.getElementById("panel_image");
 		document.getElementById("description").innerHTML = object.toString();
 		image.innerHTML = '';
-		image.appendChild(getSVG(object.getImg()));
+		image.appendChild(getSVG(object));
 	}
 
 	var tileWidth = function () {
