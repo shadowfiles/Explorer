@@ -34,6 +34,10 @@ Universe.prototype.getImg = function() {
     return this.myImg;
 }
 
+Universe.prototype.getType = function() {
+    return this.myType;
+}
+
 //defines the Galaxy object
 function Galaxy(seed, myParent) {
     this.seed = seed;
@@ -58,6 +62,10 @@ Galaxy.prototype.getParent = function() {
 
 Galaxy.prototype.getImg = function() {
     return this.myImg;
+}
+
+Galaxy.prototype.getType = function() {
+    return this.myType;
 }
 
 //defines the System object
@@ -86,6 +94,10 @@ System.prototype.getImg = function() {
     return this.myImg;
 }
 
+System.prototype.getType = function() {
+    return this.myType;
+}
+
 //defines the planet object
 function Planet(seed, myParent) {
     this.seed = seed;
@@ -110,6 +122,10 @@ Planet.prototype.getParent = function() {
 
 Planet.prototype.getImg = function() {
     return this.myImg;
+}
+
+Planet.prototype.getType = function() {
+    return this.myType;
 }
 
 //defines the region object
@@ -138,6 +154,10 @@ Region.prototype.getImg = function() {
     return this.myImg;
 }
 
+Region.prototype.getType = function() {
+    return this.myType;
+}
+
 //defines the Biome object
 function Biome(seed, myParent) {
     this.seed = seed;
@@ -162,6 +182,10 @@ Biome.prototype.getParent = function() {
 
 Biome.prototype.getImg = function() {
     return this.myImg;
+}
+
+Biome.prototype.getType = function() {
+    return this.myType;
 }
 
 //defines the Locale object
@@ -190,6 +214,9 @@ Locale.prototype.getImg = function() {
     return this.myImg;
 }
 
+Locale.prototype.getType = function() {
+    return this.myType;
+}
 
 //defines the Area object
 function Area(seed, myParent) {
@@ -217,6 +244,10 @@ Area.prototype.getImg = function() {
     return this.myImg;
 }
 
+Area.prototype.getType = function() {
+    return this.myType;
+}
+
 //defines the Item object
 function Item(seed, myParent) {
     this.seed = seed;
@@ -241,4 +272,8 @@ Item.prototype.getParent = function() {
 
 Item.prototype.getImg = function() {
     return this.myImg;
+}
+
+Item.prototype.getType = function() {
+    return this.myType;
 }
