@@ -3,8 +3,6 @@ window.onload = function (e) {
 	var ui = new GameInterface (game, "map", "tile");
 	game.initialize();
 	ui.initialize();
-
-	document.getElementById("move").addEventListener("click", ui.move, false);
 }
 
 function GameInterface (game, id, cl) {
@@ -16,9 +14,19 @@ function GameInterface (game, id, cl) {
 
 	this.initialize = function () {
 		renderTiles();
+		document.getElementById("move")
+			.addEventListener("click", move, false);
+		document.getElementById("back")
+			.addEventListener("click", moveUp, false);
 	}
 
-	this.move = function () {
+	var moveUp = function () {
+		game.moveUp();
+		renderTiles();
+		revertSelection();
+	}
+
+	var move = function () {
 		if (selected) {
 			game.move(selected.x, selected.y);
 			renderTiles();
@@ -97,13 +105,18 @@ function GameInterface (game, id, cl) {
 
 	var clickTile = function (e) {
 		stopClick(e);
-		deselectSelected();
-
 		var x = this.getAttribute("x");
 		var y = this.getAttribute("y");
-		this.className += " selected";
-		selected = new Coordinate(x, y);
-		displayInfo(game.getChild(x, y));
+
+		if (selected && x === selected.x && y === selected.y) {
+			move();
+		} else {
+			deselectSelected();
+			
+			this.className += " selected";
+			selected = new Coordinate(x, y);
+			displayInfo(game.getChild(x, y));
+		}
 	}
 
 	var hoverTile = function (e) {
