@@ -188,7 +188,7 @@ function Game (x, y) {
 	}
 
 	this.initialize = function () {
-		current = new Universe(seed);
+		current = new Entity("universe", seed);
 		getChildren();
 	}
 
