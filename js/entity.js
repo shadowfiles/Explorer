@@ -4,7 +4,31 @@ function random (seed) {
 }
 
 function seedChoice (seed, choices) {
-    return choices[Math.floor(random(seed) * choices.length)];
+    var choice = null;
+    if (exists (choices)) {
+        choice = choices[Math.floor(random(seed) * choices.length)];
+    }
+    return choice;
+}
+
+function makeArray (data) {
+    var arr = [];
+    if (exists(data)) {
+        if (isArray(data)) {
+            arr = data;
+        } else {
+            arr = [data];
+        }
+    }
+    return arr;
+}
+
+function isArray (data) {
+    return data instanceof Array;
+}
+
+function exists (data) {
+    return data && data != null && data != undefined;
 }
 
 function Entity (type, seed, parent) {
@@ -16,9 +40,32 @@ function Entity (type, seed, parent) {
         parent = this; 
     }
 
-    var name = seedChoice(seed, data.subtypes)[0];
-    var description = seedChoice(seed, data.subtypes)[1];
-    var img = "img/" + seedChoice(seed, data.subtypes)[2] + ".svg";
+    var name = "";
+    var description = "";
+    var img = "";
+
+    var populateData = function () {
+        var nameOptions = [];
+        var descriptionOptions = [];
+        var imageOptions = [];
+
+        var subtype = data;
+        var i = 3;
+        while (exists(subtype)) {
+            nameOptions = nameOptions.concat(makeArray(subtype.name));
+            descrpitionOptions = descriptionOptions.concat(makeArray(subtype.description));
+            imageOptions = imageOptions.concat(makeArray(subtype.image));
+            
+            subtype = seedChoice(seed * i, subtype.subtypes);
+            i = i * i;
+        }
+
+        name = seedChoice(seed, nameOptions);
+        description = seedChoice(seed, descriptionOptions);
+        img = "img/" + seedChoice(seed, imageOptions) + ".svg";
+    }
+
+    populateData();
 
     this.toString = function () {
         return type + " -" + " Seed: " + seed + " - Type: " 
