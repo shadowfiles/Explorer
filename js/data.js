@@ -15,6 +15,10 @@ var entities = {
 			subtypes : [["Red Giant System", "This is a red giant system.", "s/1"], 
 									["White Dwarf System", "This is a white dwarf system.", "s/2"], 
 									["Subgiant System", "This is a subgiant system.", "s/3"]],
+			children : ["planet", "star"]
+	},
+	"star" : {
+			subtypes : [["Sun", "Keeps me warm. ", "p/5"]],
 			children : ["planet"]
 	},
 	"planet" : {

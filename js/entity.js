@@ -30,7 +30,7 @@ function Entity (type, seed, parent) {
 
         var childType = type;
         if (data.children) {
-            childType = seedChoice(childSeed, data.children);
+            childType = seedChoice(childSeed * 2, data.children);
         }
         return new Entity(childType, childSeed, this);
     }

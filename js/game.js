@@ -154,7 +154,7 @@ function GameInterface (game, id, cl) {
 
 function Game (x, y) {
 	var dimensions = new Coordinate(x, y);
-	var seed = makeSeed(1);
+	var seed = makeSeed(1878);
 	var children = make2DArray(x, y);
 
 	var current;
