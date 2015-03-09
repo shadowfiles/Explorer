@@ -6,7 +6,12 @@ function random (seed) {
 function seedChoice (seed, choices) {
     var choice = null;
     if (exists (choices)) {
-        choice = choices[Math.floor(random(seed) * choices.length)];
+        if (isArray(choices)) {
+            choice = choices[Math.floor(random(seed) * choices.length)];
+        } else {
+            var keys = Object.keys(choices);
+            choice = choices[keys[Math.floor(random(seed) * keys.length)]];
+        }
     }
     return choice;
 }
@@ -53,16 +58,22 @@ function Entity (type, seed, parent) {
         var i = 3;
         while (exists(subtype)) {
             nameOptions = nameOptions.concat(makeArray(subtype.name));
-            descrpitionOptions = descriptionOptions.concat(makeArray(subtype.description));
+            descriptionOptions = descriptionOptions.concat(makeArray(subtype.description));
             imageOptions = imageOptions.concat(makeArray(subtype.image));
-            
+
             subtype = seedChoice(seed * i, subtype.subtypes);
             i = i * i;
         }
 
-        name = seedChoice(seed, nameOptions);
-        description = seedChoice(seed, descriptionOptions);
-        img = "img/" + seedChoice(seed, imageOptions) + ".svg";
+        if (nameOptions.length > 0) {
+            name = seedChoice(seed, nameOptions);
+        }
+        if (descriptionOptions.length > 0) {
+            description = seedChoice(seed, descriptionOptions);
+        }
+        if (imageOptions.length > 0) {
+            img = "img/" + seedChoice(seed, imageOptions) + ".svg";
+        }
     }
 
     populateData();
@@ -75,11 +86,12 @@ function Entity (type, seed, parent) {
     this.getChild = function (x, y) {
         var childSeed = seed + x + y * 10;
 
-        var childType = type;
+        var entity = this;
         if (data.children) {
-            childType = seedChoice(childSeed * 2, data.children);
+            var childType = seedChoice(childSeed * 2, data.children);
+            entity = new Entity(childType, childSeed, this);
         }
-        return new Entity(childType, childSeed, this);
+        return entity;
     }
 
     this.getParent = function () {

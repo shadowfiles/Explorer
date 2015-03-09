@@ -95,7 +95,10 @@ function GameInterface (game, id, cl) {
 
 	var renderTile = function (x, y) {
 		var tile = initializeTile(x, y);
-		tile.appendChild(getSVG(game.getChild(x, y)));
+		var item = game.getChild(x, y);
+		if (item.getImg()) {
+			tile.appendChild(getSVG(item));
+		}
 		return tile;
 	}
 
