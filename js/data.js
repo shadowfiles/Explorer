@@ -1,7 +1,4 @@
 var entities = {
-	"nothing" : {
-			description : "Nothing here. "
-	},
 	"universe" : {
 			subtypes : {
 									"cyclic" : {
@@ -19,7 +16,7 @@ var entities = {
 										description : "This is a quantum universe.", 
 										image : "u/3"
 									}},
-			children : ["galaxy", "system", "nothing"]
+			children : ["galaxy", "system"]
 	},
 	"galaxy" : {
 			subtypes : {
